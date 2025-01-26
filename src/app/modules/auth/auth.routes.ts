@@ -8,6 +8,6 @@ const router = express.Router()
 
 router.post('/register', ValidateRequest(UserValidation.createUserValidationSchema), AuthController.createUser)
 router.post('/login', ValidateRequest(AuthValidation.loginValidationSchema),AuthController.loginUser)
-router.post('/refresh-token',auth('user', 'admin'),ValidateRefreshToken(AuthValidation.refreshTokenValidationSchema),AuthController.refreshToken)
+router.post('/refresh-token',auth('customer', 'admin'),ValidateRefreshToken(AuthValidation.refreshTokenValidationSchema),AuthController.refreshToken)
 
 export const AuthRoutes =router;

@@ -18,7 +18,7 @@ const loginUser = async (payload: TUser) => {
     const user = await User.findOne({ email: payload.email }).select(['password', 'email', 'role']);
 
     //all good, now proceed to issuing a jwt token to the user
-    const accessToken = await createJWTAccessToken({ email: user?.email as string, role: user?.role as string }, config.jwt_secret as string, '15m');
+    const accessToken = await createJWTAccessToken({ email: user?.email as string, role: user?.role as string }, config.jwt_secret as string, '1h');
     const refreshToken = await createJWTRefreshToken({ email: user?.email as string, role: user?.role as string }, config.jwt_refresh as string, '30d');
 
     return { accessToken, refreshToken };

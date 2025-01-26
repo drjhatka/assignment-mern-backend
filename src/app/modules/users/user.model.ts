@@ -22,7 +22,7 @@ const userSchema = new Schema<TUser>({
     role: {
         type: String,
         enum: userEnums.UserRolesArray,
-        default:'user'
+        default:'customer'
     },
     status: {
         type: String,

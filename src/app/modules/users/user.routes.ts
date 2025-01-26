@@ -11,6 +11,8 @@ router.get('/', (req: Request, res: Response) => {
     })
 })
 
+router.post('/create-customer', ValidateRequest(UserValidation.createUserValidationSchema),UserController.createUser )
+
 
 
 

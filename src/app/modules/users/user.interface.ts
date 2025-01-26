@@ -4,8 +4,8 @@ export interface TUser {
     name:string;
     email:string;
     password:string;
-    role:'admin'|'user';
-    status:'active'|'blocked'
+    role:'admin'|'customer';
+    status:'active'|'blocked';
     isDeleted:boolean;
 }
 

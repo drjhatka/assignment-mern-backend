@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 
 //define server configurations...
 const serverConfigurations = {
-    cors: cors({origin:"*"}), // for now accept requests from everywhere
+    cors: cors({origin:"http://localhost:5173", credentials:true}), // for now accept requests from everywhere
     jsonParser: express.json(),
     cookieParser: cookieParser(),
 }

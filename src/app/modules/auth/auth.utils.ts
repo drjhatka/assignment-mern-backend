@@ -59,11 +59,11 @@ export const checkRefreshTokenCredentials = async ( user: TUser) => {
     }
     return 'valid'
 }
-export const createJWTAccessToken = async (jwtPayload: JWTTokenPayload, config: string, expiresIn: string) => {
-    return jwt.sign(jwtPayload, config, { expiresIn: expiresIn })
+export const createJWTAccessToken = async (jwtPayload: JWTTokenPayload, config: string, expiry: string) => {
+    return "Bearer " + jwt.sign(jwtPayload, config, { expiresIn: expiry } as jwt.SignOptions)
 }
-export const createJWTRefreshToken = async (jwtPayload: JWTTokenPayload, config: string, expiresIn: string) => {
-    return jwt.sign(jwtPayload, config, { expiresIn: expiresIn })
+export const createJWTRefreshToken = async (jwtPayload: JWTTokenPayload, config: string, expiry:string) => {
+    return jwt.sign(jwtPayload, config, { expiresIn: expiry } as jwt.SignOptions )
 }
 
 export const sanitizePostUserData = async (userId: string, fields: string[]) => {

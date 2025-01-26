@@ -1,4 +1,4 @@
-const UserRolesArray = ['admin', 'user'];
+const UserRolesArray = ['admin', 'customer'];
 const UserStatusArray = ['active', 'blocked']
 
 export const userEnums = {

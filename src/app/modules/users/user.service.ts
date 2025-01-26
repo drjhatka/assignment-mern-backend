@@ -1,8 +1,10 @@
+import { AppError } from "../../error/app.error";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
 
-const createUserIntoDB=async(payload:TUser)=>{
-    return await User.create(payload)
+const createUserIntoDB = async(payload:TUser)=>{
+        const result= await User.create(payload)
+        return result
 }
 
 export const UserService = {
