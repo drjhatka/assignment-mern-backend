@@ -6,7 +6,10 @@ const createUserIntoDB = async(payload:TUser)=>{
         const result= await User.create(payload)
         return result
 }
-
+const getSingleUser = async(email:string)=>{
+    return await User.findOne({email:email})
+}
 export const UserService = {
     createUserIntoDB,
+    getSingleUser
 }
