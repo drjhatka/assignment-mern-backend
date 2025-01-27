@@ -1,10 +1,14 @@
-import { Request, Response } from "express";
-import ZodBikeSchema from "../validators/ZodBikeSchema";
+import { NextFunction, Request, Response } from "express";
 import { BikeServices } from "./BikeServices";
 import { ZodError } from "zod";
-import { CustomResponse } from "../utilities/CustomResponse";
-import { CustomError } from "../utilities/CustomErrors";
+
 import Bike from "./BikeInterface";
+import ZodBikeSchema from "../validators/ZodBikeSchema";
+import { CustomResponse } from "../../utils/CustomResponse";
+import { CustomError } from "../../utils/CustomErrors";
+import { catchAsync } from "../../utils/catchAsync";
+import { sendResponse } from "../../utils/sendResponse";
+//import { message } from "statuses";
 
 const createBike = async (req: Request,  res: Response) => {
     try {
@@ -33,24 +37,33 @@ const getABike = async (req: Request, res: Response) => {
         //CustomError.fireCustomError(res,404,false,'Bike not Available',Error.prepareStackTrace?.toString())
     }
 }
-const getAllBikes = async (req: Request, res: Response) => {
-    try {
-         const result = await BikeServices.getAll(req.query.searchTerm as string)
 
-        // if (!req.query.searchTerm) {
-        //     CustomResponse.fireCustomResponse(res,200,true,'Search Term is Required!')
-        // }
-        // const result = await BikeServices.getAll(req.query.searchTerm as string)
-        // if (result?.length != 0) { //result is not empty so bike is available
-        //     res.status(200).json({message: "Bikes Retrieved Successfully",status: true,data: result})
-        // }
-        // else { //check if the result returns an empty array...
-        //     res.json({ success: false, message: "Bike(s) not available" })
-        // }
-    } catch (error) {
-        //res.json({ success: false, message: "Bike(s) not available", error:error }) 
-    }
+const getAllBikes = async (req:Request, res:Response, next:NextFunction)=>{
+     
+     //const result = await BikeServices.getAll(req.query.searchTerm as string)
+     if (!req.query.searchTerm) {
+         CustomResponse.fireCustomResponse(res,200,true,'Search Term is Required!')
+        }
+
+     const result = await BikeServices.getAll(req.query.searchTerm as string)
+
+        //const result = await BikeServices.getAll(req.query.searchTerm as string)
+        if (result?.length != 0) { //result is not empty so bike is available
+            res.status(200).json({message: "Bikes Retrieved Successfully",status: true,data: result})
+        }
+        else { //check if the result returns an empty array...
+            res.json({ success: false, message: "Bike(s) not available" })
+        }
+        
+         //sendResponse(res, {success:true, statusCode:200, message:'Retrieved All', data:result})
+        
+     //} catch (error) {
+        // res.json({ success: false, message: "Bike(s) not available", error:error }) 
+    
 }
+// const getAllBikes = catchAsync(async (req ,res, next) => {
+//     return await BikeServices.getAll('Mountain')
+// })
 const updateABike = async (req: Request, res: Response) => {
     try {
         const productId: string = req.params.productId

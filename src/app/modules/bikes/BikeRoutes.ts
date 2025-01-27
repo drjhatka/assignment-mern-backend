@@ -13,4 +13,4 @@ const router = express.Router();
     router.delete('/:productId', BikeController.deleteABike)
 
 
-export const BikeRoutes = {router};
+export const BikeRoutes = router;

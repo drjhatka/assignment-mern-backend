@@ -7,7 +7,7 @@ export type TResponse<T> ={
     data:T
 }
 export const sendResponse= <T> ( res:Response, data:TResponse<T>)=>{
-    console.log(data)
+    //console.log(data)
     return res.json({
         success:data.success,
         message:data.message,

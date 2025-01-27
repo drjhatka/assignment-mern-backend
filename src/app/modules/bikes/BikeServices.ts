@@ -14,7 +14,7 @@ const getOne = async (Id: string) => {
 }
 
 const getAll = async (searchTerm: string) => {
-   
+   console.log(searchTerm)
     // build a search condition...
     let filter = {};
     let result = null;
