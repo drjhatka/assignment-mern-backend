@@ -19,7 +19,7 @@ const routes = [
         route:AuthRoutes
     },
     {
-        path:'/blogs',
+        path:'/bikes',
         route:BlogRoutes
     }
 ]

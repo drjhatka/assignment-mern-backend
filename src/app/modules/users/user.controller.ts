@@ -20,4 +20,5 @@ const getSingleUser = catchAsync(async(req, res, next)=>{
 
 export const UserController = {
     createUser,
+    getSingleUser
 }
