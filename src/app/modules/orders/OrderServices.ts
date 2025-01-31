@@ -1,12 +1,12 @@
 import mongoose from "mongoose"
 import Order from './OrderInterface';
-import {OrderModel} from "./OrderSchema"
+import OrderSchema from "./OrderSchema";
 
-const create = async (order: Order) => { return await OrderModel.create(order) }
+const create = async (order: Order) => { return await OrderSchema.create(order) }
 
-const getOne = async (productId: string) => { return await OrderModel.find({ productId: new mongoose.Types.ObjectId(productId) }) }
+const getOne = async (productId: string) => { return await OrderSchema.find({ productId: new mongoose.Types.ObjectId(productId) }) }
 
-const getAll = async () => {return await OrderModel.find({})}
+const getAll = async () => {return await OrderSchema.find({})}
 
 
 const calculateTotalRevenue= async()=> {

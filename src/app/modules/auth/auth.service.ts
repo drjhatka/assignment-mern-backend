@@ -20,7 +20,7 @@ const loginUser = async (payload: TUser) => {
     //all good, now proceed to issuing a jwt token to the user
     const accessToken = await createJWTAccessToken({ email: user?.email as string, role: user?.role as string }, config.jwt_secret as string, '1h');
     const refreshToken = await createJWTRefreshToken({ email: user?.email as string, role: user?.role as string }, config.jwt_refresh as string, '30d');
-
+    
     return { accessToken, refreshToken };
 }
 const refreshToken = async (token: string) => {

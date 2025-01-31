@@ -7,8 +7,8 @@ const router = express.Router();
 
 //define bike CRUD routes...
 
-    router.post('/orders', OrderController.createOrder)
+    router.post('/', OrderController.createOrder)
     router.get('/orders/revenue', OrderController.calculateRevenue)
 
 
-export const OrderRoutes = {router};
+export const OrderRoutes = router;

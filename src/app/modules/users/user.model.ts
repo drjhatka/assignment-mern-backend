@@ -24,6 +24,15 @@ const userSchema = new Schema<TUser>({
         enum: userEnums.UserRolesArray,
         default:'customer'
     },
+    phone: {
+        type: String,
+    },
+    address: {
+        type: String,
+    },
+    city:{
+        type:String,
+    },
     status: {
         type: String,
         enum: userEnums.UserStatusArray,

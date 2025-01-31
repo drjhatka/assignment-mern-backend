@@ -1,8 +1,6 @@
 import status from "statuses";
 import { sendResponse } from "../../utils/sendResponse";
 import { UserService } from "./user.service";
-import { NextFunction, Request, RequestHandler, Response } from "express";
-import { ErrorResponse } from "../../types/types";
 import { catchAsync } from "../../utils/catchAsync";
 
 

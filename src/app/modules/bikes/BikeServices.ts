@@ -9,7 +9,7 @@ const create = async (bike: Bike) => { return await BikeModel.create(bike) }
 
 const getOne = async (Id: string) => {
     const bike :Bike|null= await BikeModel.findOne({ _id: new mongoose.Types.ObjectId(Id) })
-    //return new Promise((resolve) => resolve(bike as Bike))
+    console.log('bike', bike)
     return bike;
 }
 

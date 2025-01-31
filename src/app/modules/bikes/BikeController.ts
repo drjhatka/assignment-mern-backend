@@ -27,8 +27,10 @@ const createBike = async (req: Request,  res: Response) => {
 const getABike = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.productId
+        console.log("ID ",id)
         const result:Bike|null = await BikeServices.getOne(id)
-        if(result && 'result.$isValid()' ){
+        console.log(result)
+        if(result ){
             CustomResponse.fireCustomResponse(res,200,true,'Bike Retrieved Successfully',result)
         }
     } catch (error) {

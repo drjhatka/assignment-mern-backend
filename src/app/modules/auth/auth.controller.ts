@@ -27,7 +27,8 @@ const loginUser = catchAsync(async (req, res) => {
         const user = await User.findOne({ email:req.body.email }).select(['password','email', 'role', 'status', 'isDeleted'] );
         //check if the user exists, password match, status is active and user is not deleted
         checkLoginCredentials(res, user as TUser, req.body );
-
+        req.user = user;
+    console.log('logged in user ', req.user)
     const result = await AuthService.loginUser(req.body)
     const {accessToken, refreshToken} =result
     res.cookie('refreshToken',refreshToken,{

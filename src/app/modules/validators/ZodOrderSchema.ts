@@ -1,11 +1,21 @@
-import { z } from 'zod'
+import { z } from "zod";
 
-// creating a schema for bike validation
-const ZodOrderSchema = z.object({
-    email: z.string().email().min(1, 'Email is required').trim(), // Ensures the string is not empty,
-    productId: z.string().trim(),
-    quantity: z.number().min(0, 'Quantity cannot negative or zero'), // Ensures price is not negative
-    totalPrice: z.number().min(0,'Total Price cannot negative or zero'),
+// Product validation schema
+const productSchema = z.object({
+  product: z.string().nonempty("Product name is required"), // Product name must be a non-empty string
+  quantity: z.number().int().positive("Quantity must be a positive integer") // Quantity must be a positive integer
 });
 
-export default ZodOrderSchema;
+// Order validation schema
+const orderSchema = z.object({
+  user: z.string().refine((val) => /^[a-f\d]{24}$/i.test(val), { // Validate MongoDB ObjectId format
+    message: "Invalid user ID format"
+  }),
+  products: z.array(productSchema).min(1, "At least one product is required"), // At least one product is required
+  quantity: z.number().int().positive("Total quantity must be a positive integer"), // Total quantity validation
+  totalPrice: z.number().positive("Total price must be a positive number").default(0).optional(), // Total price must be positive
+  status: z.enum(["Pending", "Progress", "Completed"]).default('Pending').optional(), // Enum validation for status
+  inStock:z.boolean().optional(),
+});
+
+export default orderSchema;
