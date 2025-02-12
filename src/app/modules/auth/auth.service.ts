@@ -14,13 +14,11 @@ const createUserIntoDB = () => {
 }
 
 const loginUser = async (payload: TUser) => {
-    // Check if the user exists
+    // retrieve user
     const user = await User.findOne({ email: payload.email }).select(['password', 'email', 'role']);
-
-    //all good, now proceed to issuing a jwt token to the user
+    //all good, now proceed to issuing jwt token and refresh token to the user
     const accessToken = await createJWTAccessToken({ email: user?.email as string, role: user?.role as string }, config.jwt_secret as string, '1h');
     const refreshToken = await createJWTRefreshToken({ email: user?.email as string, role: user?.role as string }, config.jwt_refresh as string, '30d');
-    
     return { accessToken, refreshToken };
 }
 const refreshToken = async (token: string) => {

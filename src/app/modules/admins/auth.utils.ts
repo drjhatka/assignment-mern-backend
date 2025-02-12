@@ -9,6 +9,7 @@ import status from "statuses";
 export type JWTTokenPayload = {
     email:string
     role:string,
+    
 }
 
 export const checkLoginCredentials = async (user: TUser, payload: TLoginUser) => {

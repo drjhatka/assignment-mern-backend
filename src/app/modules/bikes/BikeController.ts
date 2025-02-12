@@ -27,9 +27,9 @@ const createBike = async (req: Request,  res: Response) => {
 const getABike = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.productId
-        console.log("ID ",id)
+        //console.log("ID ",id)
         const result:Bike|null = await BikeServices.getOne(id)
-        console.log(result)
+        //console.log(result)
         if(result ){
             CustomResponse.fireCustomResponse(res,200,true,'Bike Retrieved Successfully',result)
         }
@@ -43,19 +43,21 @@ const getABike = async (req: Request, res: Response) => {
 const getAllBikes = async (req:Request, res:Response, next:NextFunction)=>{
      
      //const result = await BikeServices.getAll(req.query.searchTerm as string)
-     if (!req.query.searchTerm) {
-         CustomResponse.fireCustomResponse(res,200,true,'Search Term is Required!')
-        }
-
-     const result = await BikeServices.getAll(req.query.searchTerm as string)
+    //  if (!req.query.searchTerm) {
+    //      CustomResponse.fireCustomResponse(res,200,true,'Search Term is Required!')
+    //     }
+    //  const result = await BikeServices.getAll(req.query.searchTerm as string)
+    console.log(req.query.searchTerm, req.query.brand)
+     const result = await BikeServices.getAll(req.query)
+     res.send({data:result})
 
         //const result = await BikeServices.getAll(req.query.searchTerm as string)
-        if (result?.length != 0) { //result is not empty so bike is available
-            res.status(200).json({message: "Bikes Retrieved Successfully",status: true,data: result})
-        }
-        else { //check if the result returns an empty array...
-            res.json({ success: false, message: "Bike(s) not available" })
-        }
+        // if (result?.length != 0) { //result is not empty so bike is available
+        //     res.status(200).json({message: "Bikes Retrieved Successfully",status: true,data: result})
+        // }
+        // else { //check if the result returns an empty array...
+        //     res.json({ success: false, message: "Bike(s) not available" })
+        // }
         
          //sendResponse(res, {success:true, statusCode:200, message:'Retrieved All', data:result})
         

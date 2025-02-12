@@ -18,19 +18,20 @@ const createUser = catchAsync(async (req, res) => {
 
 const loginUser = catchAsync(async (req, res) => {
     const { email, password } = req.body
-    console.log(email)
     if (!email || !password) {
         sendResponse(res, { success: false, statusCode: status('bad request'), message: "email and password required", data: {} })
         return
     }
-        // Check if the user exists
-        const user = await User.findOne({ email:req.body.email }).select(['password','email', 'role', 'status', 'isDeleted'] );
+        // retrieve user based on email...
+        const user = await User.findOne({ email:req.body.email }).select(['password','name','email', 'role','phone','address','city', 'status', 'isDeleted'] );
         //check if the user exists, password match, status is active and user is not deleted
         checkLoginCredentials(res, user as TUser, req.body );
+        //set user to request user variable...
         req.user = user;
-    console.log('logged in user ', req.user)
+    //create JWT Token to frontend...
     const result = await AuthService.loginUser(req.body)
-    const {accessToken, refreshToken} =result
+    const {accessToken, refreshToken} = result
+    //set cookie in the frontend...
     res.cookie('refreshToken',refreshToken,{
         secure:true,
         httpOnly:true,
